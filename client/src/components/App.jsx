@@ -12,9 +12,11 @@ class App extends React.Component {
     return (
       <div>
         If you can see this, React is working.
-        <div className="wrapper">
-          <PhotoGal />
-          <PhotoNav />
+        <div className="media-wrapper">
+          <div className="inner-wrapper">
+            <PhotoGal />
+            <PhotoNav />
+          </div>
         </div>
       </div>
     );
