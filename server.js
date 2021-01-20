@@ -25,7 +25,7 @@ app.get('/api/items/:itemId', (req, res) => {
   console.log('this is req.params: ', req.params);
   Item.find(itemId) // { itemId: itemId }
     .then((data) => {
-      console.log(data)
+      console.log(data);
       res.send(data);
     })
     .catch((err) => res.send(err));
