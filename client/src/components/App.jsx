@@ -12,7 +12,7 @@ class App extends React.Component {
     return (
       <div>
         If you can see this, React is working.
-        <div className="media-wrapper">
+        <div id="media-wrapper">
           <div className="inner-wrapper">
             <PhotoGal />
             <PhotoNav />
