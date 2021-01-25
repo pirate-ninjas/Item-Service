@@ -5,6 +5,7 @@ const mongoUri = 'mongodb://localhost/items';
 const db = mongoose.connect(mongoUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useCreateIndex: true,
 });
 
 module.exports = db;

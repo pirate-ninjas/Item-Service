@@ -7,16 +7,14 @@ const colorsSourceArr = [
   'yellow', 'black', 'tan', 'cyan', 'magenta', 'mint green', 'pink', 'purple', 'gold', 'lime', 'turquoise', 'blue', 'salmon', 'azure', 'lavender', 'teal', 'sky blue', 'white', 'olive', 'grey', 'red', 'silver', 'orange'];
 
 const thumbnailsArr = [
-  'https://source.unsplash.com/160x90/?products',
-  'https://source.unsplash.com/160x90/?products',
-  'https://source.unsplash.com/160x90/?products',
-  'https://source.unsplash.com/160x90/?products',
-  'https://source.unsplash.com/160x90/?products',
-  'https://source.unsplash.com/160x90/?products',
-  'https://source.unsplash.com/160x90/?products',
-  'https://source.unsplash.com/160x90/?products',
-  'https://source.unsplash.com/160x90/?products',
-  'https://source.unsplash.com/160x90/?products',
+  'https://source.unsplash.com/enDaxoMxqEw/104x78',
+  'https://source.unsplash.com/a3Y8K0-DI8M/104x78',
+  'https://source.unsplash.com/FtZ0qrRnuS0/104x78',
+  'https://source.unsplash.com/UQfdObKFl4Q/104x78',
+  'https://source.unsplash.com/sFXJnueBNDo/104x78',
+  'https://source.unsplash.com/3BDtb6DEXFk/104x78',
+  'https://source.unsplash.com/mYn4bfLh2ic/104x78',
+  'https://source.unsplash.com/8S7ZoRyYOTY/104x78',
 ];
 
 const getRandomIntInclusive = (min, max) => {
@@ -65,9 +63,16 @@ while (id < 100) {
         html_url: thumbnailsArr,
       },
     },
-    photos: {
-      html_url: 'https://source.unsplash.com/?products',
-    },
+    photos: [
+      'https://source.unsplash.com/enDaxoMxqEw/764x554',
+      'https://source.unsplash.com/a3Y8K0-DI8M/764x554',
+      'https://source.unsplash.com/FtZ0qrRnuS0/764x554',
+      'https://source.unsplash.com/UQfdObKFl4Q/764x554',
+      'https://source.unsplash.com/sFXJnueBNDo/764x554',
+      'https://source.unsplash.com/3BDtb6DEXFk/764x554',
+      'https://source.unsplash.com/mYn4bfLh2ic/764x554',
+      'https://source.unsplash.com/8S7ZoRyYOTY/764x554',
+    ],
     cart: {
       quantity_selector: faker.random.number({ min: 1, max: 10 }),
     },
