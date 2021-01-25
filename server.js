@@ -22,7 +22,7 @@ app.listen(PORT, () => {
 
 app.get('/api/items/:itemId', (req, res) => {
   const itemId = req.params;
-  console.log('this is req.params: ', req.params);
+  // console.log('this is req.params: ', req.params);
   Item.find(itemId) // { itemId: itemId }
     .then((data) => {
       console.log(data);

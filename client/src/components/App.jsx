@@ -1,35 +1,49 @@
-/* eslint-disable react/destructuring-assignment */
+/* eslint-disable arrow-body-style */
 import axios from 'axios';
 import React from 'react';
 import PhotoGal from './PhotoGal';
 import PhotoNav from './PhotoNav';
-import Zoom from './Zoom';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: [],
+      items: [{
+        photos: [''],
+        options_selector: {
+          thumbnails: {
+            html_url: [''],
+          },
+        },
+      }],
     };
     this.getItems = this.getItems.bind(this);
   }
 
+  componentDidMount() {
+    this.getItems();
+  }
+
   getItems() {
-    axios.get('/api/items')
+    axios.get('/api/items/0')
       .then(({ data }) => {
         this.setState({ items: data });
+      })
+      .catch((error) => {
+        return error;
       });
   }
 
   render() {
+    const { items } = this.state;
+    // console.log(items[0]._id);
     return (
       <div>
         If you can see this, React is working.
         <div id="media-wrapper">
           <div className="inner-wrapper">
-            <PhotoGal items={this.state.items} />
-            {/* <Zoom /> */}
-            <PhotoNav items={this.state.items} />
+            <PhotoGal items={items} />
+            <PhotoNav items={items[0]} />
           </div>
         </div>
       </div>

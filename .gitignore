@@ -1,4 +1,10 @@
 node_modules
-test
+__test__
 credentials.*
 bundle.*
+zoomScript.*
+unsplashAPI.*
+/unsplash
+/Zoom
+/coverage
+Zoom.*
