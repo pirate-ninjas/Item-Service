@@ -1,5 +1,5 @@
 node_modules
-__test__
+# __test__
 credentials.*
 bundle.*
 zoomScript.*
