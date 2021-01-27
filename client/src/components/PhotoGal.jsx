@@ -24,8 +24,8 @@ class PhotoGal extends React.Component {
     this.magnify = this.magnify.bind(this);
     this.onEnter = this.onEnter.bind(this);
     this.handleSize = this.onEnter.bind(this);
-    this.magnifyThrottled = throttle(this.magnify, 40);
-    this.onEnterThrottled = throttle(this.onEnter, 40);
+    this.magnifyThrottled = throttle(this.magnify, 30);
+    this.onEnterThrottled = throttle(this.onEnter, 30);
     // this.handleSizeThrottled = throttle(this.handleSize, 30);
   }
 
@@ -62,9 +62,9 @@ class PhotoGal extends React.Component {
     // const mouseX = e.pageX;
     // const mouseY = e.pageY;
 
-    throttle(this.setState({
+    this.setState({
       lensX, lensY, galImgWidth, galImgHeight,
-    }), 1000);
+    });
     // this.handleSize();
     // mouseX, mouseY
   }
