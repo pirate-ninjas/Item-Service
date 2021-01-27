@@ -25,7 +25,7 @@ class App extends React.Component {
   }
 
   getItems() {
-    axios.get('/api/items/0')
+    axios.get('/api/products/0/item')
       .then(({ data }) => {
         this.setState({ items: data });
       })
@@ -39,7 +39,7 @@ class App extends React.Component {
     // console.log(items[0]._id);
     return (
       <div>
-        If you can see this, React is working.
+        {/* If you can see this, React is working. */}
         <div id="media-wrapper">
           <div className="inner-wrapper">
             <PhotoGal items={items} />
