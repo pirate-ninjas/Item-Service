@@ -29,9 +29,7 @@ const itemSchema = new mongoose.Schema({
       html_url: Array,
     },
   },
-  photos: {
-    html_url: String,
-  },
+  photos: Array,
   cart: {
     quantity_selector: Number,
   },
