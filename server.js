@@ -3,7 +3,7 @@ const path = require('path');
 const Item = require('./database/items.js');
 
 const app = express();
-const PORT = 3000;
+const PORT = 1000;
 const PUBLIC_DIR = path.resolve(__dirname, 'public');
 
 app.use(express.json());
@@ -20,7 +20,7 @@ app.listen(PORT, () => {
   console.log(`Server listening at localhost:${PORT}!`);
 });
 
-app.get('/api/items/:itemId', (req, res) => {
+app.get('/api/products/:itemId/item', (req, res) => {
   const itemId = req.params;
   // console.log('this is req.params: ', req.params);
   Item.find(itemId) // { itemId: itemId }

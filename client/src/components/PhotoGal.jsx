@@ -1,15 +1,16 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
-/* eslint-disable max-len */
 import React from 'react';
 // import Zoom from './Zoom';
+const throttle = require('lodash.throttle');
+
 class PhotoGal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       lensX: 0,
       lensY: 0,
-      showBox: false,
+      // showBox: false,
       currentImgSrc: null,
       galImgWidth: 0,
       galImgHeight: 0,
@@ -23,15 +24,19 @@ class PhotoGal extends React.Component {
     this.magnify = this.magnify.bind(this);
     this.onEnter = this.onEnter.bind(this);
     this.handleSize = this.onEnter.bind(this);
+    this.magnifyThrottled = throttle(this.magnify, 40);
+    this.onEnterThrottled = throttle(this.onEnter, 40);
+    // this.handleSizeThrottled = throttle(this.handleSize, 30);
   }
 
   componentDidMount() {
   }
 
-  handleBoxToggle(currentImg) {
-    const { showBox } = this.state;
-    this.setState({ showBox: !showBox, currentImgSrc: currentImg });
-  }
+  // handleBoxToggle(currentImg) {
+
+  //   const { showBox } = this.state;
+  //   this.setState({ showBox: !showBox, currentImgSrc: currentImg });
+  // }
 
   // handleSize(width, height) {
   //   // const { galImgWidth, galImgHeight } = this.state;
@@ -41,7 +46,7 @@ class PhotoGal extends React.Component {
   onEnter(e) {
     const currentImgSrc = e.target.currentSrc;
     this.setState({ currentImgSrc });
-    this.handleBoxToggle(currentImgSrc);
+    // this.handleBoxToggle(currentImgSrc);
   }
 
   // onLeave() {
@@ -57,9 +62,9 @@ class PhotoGal extends React.Component {
     // const mouseX = e.pageX;
     // const mouseY = e.pageY;
 
-    this.setState({
+    throttle(this.setState({
       lensX, lensY, galImgWidth, galImgHeight,
-    });
+    }), 1000);
     // this.handleSize();
     // mouseX, mouseY
   }
@@ -71,7 +76,7 @@ class PhotoGal extends React.Component {
     } = this.state;
     const { items } = this.props;
     const { photos } = items[0];
-    // console.log(mouseX, mouseY);
+    // console.log(lensX, lensY);
     // if (items.length < 2) {
     //   return null;
     // }
@@ -83,9 +88,9 @@ class PhotoGal extends React.Component {
             key={index}
             id={`image-${index}`}
             className="gallery__img"
-            onMouseEnter={this.onEnter}
+            onMouseEnter={this.onEnterThrottled}
             // onMouseLeave={this.handleBoxToggle}
-            onMouseMove={this.magnify}
+            onMouseMove={this.magnifyThrottled}
             src={photo}
             alt={`galImg${index}`}
           />
