@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const mongoUri = 'mongodb://localhost/items';
+const mongoUri = 'mongodb://datbase/items';
 
 const db = mongoose.connect(mongoUri, {
   useNewUrlParser: true,
