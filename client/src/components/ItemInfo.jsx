@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable max-len */
 /* eslint-disable react/self-closing-comp */
 import React from 'react';
@@ -6,21 +7,20 @@ class ItemInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: [],
-      quantity: 0,
+      // items: [],
+      // quantity: 0,
 
     };
   }
 
   render() {
+    const { items } = this.props;
     return (
       <div className="item-info-wrapper">
         <div className="item-brand-link-wrapper">
           <section className="item-brand-link-section">
             <div className="item-brand-link">
-              <a className="view-item-brand-link">
-                <span>YETI</span>
-              </a>
+              <span>YETI</span>
             </div>
           </section>
         </div>
@@ -94,9 +94,6 @@ class ItemInfo extends React.Component {
           </div>
         </div>
 
-
-
-
         <div className="item-buy-wrapper">
           <div className="item-buy-grid">
             <section>
@@ -119,7 +116,7 @@ class ItemInfo extends React.Component {
                             <div className="item-color-thumb-container">
                               <input type="checkbox" name="color" alt="Thumb for color" title="thumb for color" value="FIX_ME!!!" />
                               <a href="FIX_ME!!!!!!!">
-                                <img alt={`thumb for color ${item.options_selector.thumbnails.html_url}`} className="item-color-thumb"/>
+                                <img alt={`thumb for color ${items.options_selector.thumbnails.html_url[0]}`} className="item-color-thumb" />
                               </a>
                             </div>
                           </div>

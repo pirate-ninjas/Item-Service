@@ -1,8 +1,10 @@
+/* eslint-disable jsx-a11y/mouse-events-have-key-events */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
 import React from 'react';
 // import Zoom from './Zoom';
-const throttle = require('lodash.throttle');
+import rafSchedule from 'raf-schd';
+// const throttle = require('lodash.throttle');
 
 class PhotoGal extends React.Component {
   constructor(props) {
@@ -10,51 +12,20 @@ class PhotoGal extends React.Component {
     this.state = {
       lensX: 0,
       lensY: 0,
-      // showBox: false,
+      isVisible: 'hidden',
       currentImgSrc: null,
       galImgWidth: 0,
       galImgHeight: 0,
-      mouseX: 0,
-      mouseY: 0,
-
+      // mouseX: 0,
+      // mouseY: 0,
     };
-    // this.imageZoom = this.imageZoom.bind(this);
-    // this.moveLens = this.moveLens.bind(this);
-    // this.getCursorPos = this.getCursorPos.bind(this);
-    this.magnify = this.magnify.bind(this);
+    this.handleMagnify = this.handleMagnify.bind(this);
     this.onEnter = this.onEnter.bind(this);
-    this.handleSize = this.onEnter.bind(this);
-    this.magnifyThrottled = throttle(this.magnify, 30);
-    this.onEnterThrottled = throttle(this.onEnter, 30);
-    // this.handleSizeThrottled = throttle(this.handleSize, 30);
+    this.onLeave = this.onLeave.bind(this);
+    this.schedule = rafSchedule((update) => this.setState(update));
   }
 
-  componentDidMount() {
-  }
-
-  // handleBoxToggle(currentImg) {
-
-  //   const { showBox } = this.state;
-  //   this.setState({ showBox: !showBox, currentImgSrc: currentImg });
-  // }
-
-  // handleSize(width, height) {
-  //   // const { galImgWidth, galImgHeight } = this.state;
-  //   this.setState({ galImgWidth: width, galImgHeight: height });
-  // }
-
-  onEnter(e) {
-    const currentImgSrc = e.target.currentSrc;
-    this.setState({ currentImgSrc });
-    // this.handleBoxToggle(currentImgSrc);
-  }
-
-  // onLeave() {
-  //   const { showBox } = this.state;
-  //   this.setState({ showBox: !showBox });
-  // }
-
-  magnify(e) {
+  handleMagnify(e) {
     const lensX = e.clientX;
     const lensY = e.clientY;
     const galImgWidth = e.target.width;
@@ -62,35 +33,37 @@ class PhotoGal extends React.Component {
     // const mouseX = e.pageX;
     // const mouseY = e.pageY;
 
-    this.setState({
+    this.schedule({
       lensX, lensY, galImgWidth, galImgHeight,
     });
-    // this.handleSize();
-    // mouseX, mouseY
+  }
+
+  onEnter(e) {
+    const currentImgSrc = e.target.currentSrc;
+    this.setState({ currentImgSrc, isVisible: 'visible' });
+  }
+
+  onLeave() {
+    this.setState({ isVisible: 'hidden' });
   }
 
   render() {
     const {
-      // eslint-disable-next-line no-unused-vars
-      lensX, lensY, currentImgSrc, galImgWidth, galImgHeight, mouseX, mouseY,
+      lensX, lensY, currentImgSrc, galImgWidth, galImgHeight, isVisible,
     } = this.state;
     const { items } = this.props;
     const { photos } = items[0];
-    // console.log(lensX, lensY);
-    // if (items.length < 2) {
-    //   return null;
-    // }
+    // console.log('lens: ', lensX, lensY);
+    // console.log('position :', galImgWidth, galImgHeight);
+
     return (
-      <div className="gallery" data-testid="gallery">
+      <div className="gallery" data-testid="gallery" onMouseMove={this.handleMagnify} onMouseEnter={this.onEnter} onMouseLeave={this.onLeave}>
         {photos.map((photo, index) => (
           <img
             data-testid={`galImg${index}`}
             key={index}
             id={`image-${index}`}
             className="gallery__img"
-            onMouseEnter={this.onEnterThrottled}
-            // onMouseLeave={this.handleBoxToggle}
-            onMouseMove={this.magnifyThrottled}
             src={photo}
             alt={`galImg${index}`}
           />
@@ -99,19 +72,21 @@ class PhotoGal extends React.Component {
           className="zoom-lens"
           data-testid="zoom-lens"
           style={{
+            visibility: `${isVisible}`,
+            cursor: 'none',
             position: 'absolute',
             border: `${1}px solid #d4d4d4`,
             width: `${153}px`,
             height: `${225}px`,
-            left: `${lensX - 250}px`,
-            top: `${lensY - 30}px`,
-            cursor: 'none',
+            left: `${lensX - 350}px`,
+            top: `${lensY - 125}px`,
           }}
         />
         <div
           className="zoom-result"
           data-testid="zoom-result"
           style={{
+            visibility: `${isVisible}`,
             display: 'block',
             position: 'absolute',
             width: `${400}px`,
@@ -120,8 +95,8 @@ class PhotoGal extends React.Component {
             left: `${780}px`,
             zIndex: 10,
             backgroundImage: `url(${currentImgSrc})`,
-            backgroundPosition: `${lensX - 250}px ${lensY - 321}px`,
-            backgroundSize: `${galImgWidth}px ${galImgHeight}px`,
+            backgroundPosition: `${-lensX + 375}px ${-lensY + 250}px`,
+            backgroundSize: `${galImgWidth * 1.5}px ${galImgHeight * 1.5}px`,
             backgroundRepeat: 'no-repeat',
           }}
         />

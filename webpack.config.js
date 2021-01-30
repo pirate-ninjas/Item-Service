@@ -1,4 +1,5 @@
 const path = require('path');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 const SRC_DIR = path.resolve(__dirname, 'client', 'src');
 const OUT_DIR = path.resolve(__dirname, 'public');
@@ -29,7 +30,11 @@ module.exports = {
       },
     ],
   },
-  mode: 'development',
+  plugins: [new CompressionPlugin({
+    test: /\.(js|jsx)$/,
+    exclude: /(node_modules)/,
+    algorithm: 'gzip',
+  })],
   resolve: {
     extensions: ['.js', '.jsx'],
   },
