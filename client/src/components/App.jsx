@@ -3,6 +3,7 @@ import axios from 'axios';
 import React from 'react';
 import PhotoGal from './PhotoGal';
 import PhotoNav from './PhotoNav';
+// import ItemInfo from './ItemInfo';
 
 class App extends React.Component {
   constructor(props) {
@@ -36,7 +37,6 @@ class App extends React.Component {
 
   render() {
     const { items } = this.state;
-    // console.log(items[0]._id);
     return (
       <div>
         {/* If you can see this, React is working. */}
@@ -44,6 +44,7 @@ class App extends React.Component {
           <div className="inner-wrapper">
             <PhotoGal items={items} />
             <PhotoNav items={items[0]} />
+            {/* <ItemInfo items={items[0]} /> */}
           </div>
         </div>
       </div>

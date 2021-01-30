@@ -1,8 +1,10 @@
 const express = require('express');
 const path = require('path');
+const compression = require('compression');
 const Item = require('./database/items.js');
 
 const app = express();
+app.use(compression());
 const PORT = 1000;
 const PUBLIC_DIR = path.resolve(__dirname, 'public');
 
@@ -22,8 +24,7 @@ app.listen(PORT, () => {
 
 app.get('/api/products/:itemId/item', (req, res) => {
   const itemId = req.params;
-  // console.log('this is req.params: ', req.params);
-  Item.find(itemId) // { itemId: itemId }
+  Item.find(itemId)
     .then((data) => {
       console.log(data);
       res.send(data);
